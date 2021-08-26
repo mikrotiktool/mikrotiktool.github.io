@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset='utf-8'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MikroTik PCQ Burst Rate + Queue Size Calculator - mikrotiktool.Github.io</title>
+<meta content='MikroTik PCQ Burst Rate, Queue Size, Total Queue size Calculator - mikrotiktool.Github.io' name='description'/>
+<meta content='burst, rate, queue size, calculator, load balancing, pcc,LB, script generator, mikrotik, router, winbox, termimal, rsc, script, hotspot, wireless, rtrwnet' name='keywords'/>
+<meta content='index, follow, noodp' name='robots'/>
+<link rel="shortcut icon" href="mikrotiktool.github.io/favicon.ico" type="image/x-icon">
+<meta property="og:title" content="MikroTik PCQ Burst Rate + Queue Size Calculator ">
+<meta property="og:description" content="MikroTik PCQ Burst Rate + Queue Size Calculator ">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42666125/126877740-dbe54ce5-fa1d-4acc-86d9-9265618253cb.png">
+<meta property="og:image:alt" content="MikroTik PCQ Burst Rate + Queue Size Calculator ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="mikrotiktool.github.io/mikrotik-pcq-burst-rate-queue-size-generator.html">
+<script data-ad-client="ca-pub-3815059393374366" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M5TL99Q9M2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M5TL99Q9M2');
+</script>
+<style>
+*{-webkit-transition: all .3s ease-in;-moz-transition: all .3s ease-in;-ms-transition: all .3s ease-in;transition: all .3s ease-in;}
+body, div, span, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, textarea, p, blockquote, th, td, tr, table{margin:0; padding:0}
+body { font-size:16px; font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji; margin:20px;}
+html, body {
+height: 100%;
+width:100%;
+margin-top: 0px;
+padding:0;
+line-height:1.2;
+}
+* {
+box-sizing: border-box;
+}
+.logo {
+margin-top:30px;
+color: #111;
+text-decoration:none;
+font-size:27px;
+font-weight:bold;
+}
+.logo a{
+color:#111 !important;
+text-decoration:none !important;
+}
+
+.Menu{
+width:100%;
+border-bottom:1px solid #ccc;
+height:100%;
+padding-bottom: 15px;
+margin-bottom: 20px;
+font-weight:bold;
+}
+#wrap{
+width:750px;
+margin:0 auto;
+padding:10px;
+}
+.header{
+height:auto;
+width:100%;
+margin-top:0px;
+margin-bottom:10px;
+border-top:1px solid #ccc;
+}
+.main-wrap{
+background-color:#ff6600;
+}
+.content{
+float:right;
+width:510px;
+height:560px;
+padding: 10px;
+border-top:1px solid #bbb;
+border-bottom:1px solid #bbb;
+border-right:1px solid #bbb;
+background:#ddd;
+}
+.sidebar{
+float:left;
+width:220px;
+height:560px;
+padding: 10px;
+background-color:#ddd;
+border-left:1px solid #bbb;
+border-top:1px solid #bbb;
+border-bottom:1px solid #bbb;
+}
+.sidebar2{
+float:left;
+width:210px;
+height:580px;
+padding: 10px;
+background-color:#ddd;
+border-top:1px solid #bbb;
+border-bottom:1px solid #bbb;
+}
+.footer{
+font-size:14px;
+padding-top:15px;
+text-align:center;
+clear:both;
+width:auto;
+}
+h1 {
+color:#111;
+font-size:20px;
+margin-bottom:10px;
+margin-top:10px;
+}
+a:link {
+color: #ff6600;
+}
+a:visited {
+color: #ff6600;
+}
+a:hover {
+color: #ff6600;
+}
+a:active {
+color: #ff6600;
+}
+.menu {
+clear:both;
+width:auto;
+padding-bottom:13px;
+}
+.menu1 {
+width:360px;
+margin-bottom:1px;
+font-weight:bold;
+background-color:#4CAF50;
+padding:6px;
+color:white;
+display: inline-block;
+margin:0;
+}
+.menu1 a:link {
+text-decoration:none;
+color:white;
+}
+.menu1 a:visited{
+text-decoration:none;
+color:white;
+}
+.menu2 {
+width:300px;
+margin-bottom:1px;
+font-weight:bold;
+background-color:#bbb;
+padding:6px;
+color:white;
+display: inline-block;
+margin:0;
+}
+.menu2 a:link{
+text-decoration:none;
+color:white;
+}
+.menu2 a:visited{
+text-decoration:none;
+color:white;
+}
+button {
+color: #fff;
+background-color: #ff6600;
+border-color: #ff6600;
+border:none;
+padding:8px;
+width:100%;
+font-weight:bold;
+font-size:16px !important;
+}
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+input[type=text], select, textarea {
+width: 100%;
+padding: 5px;
+border: 1px solid #bbb;
+border-radius: 1px;
+resize: vertical;
+font-weight:bold;
+margin-bottom:5px;
+font-size:16px !important;
+}
+label {
+padding: 5px 5px 5px 0;
+display: inline-block;
+}
+input[type=submit] {
+background-color: #ff6600;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 1px;
+cursor: pointer;
+float: right;
+}
+input[type=submit]:hover {
+background-color: #45a049;
+}
+.col-25 {
+float: left;
+width: 25%;
+margin-top: 6px;
+}
+.col-75 {
+float: left;
+width: 75%;
+margin-top: 6px;
+}
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+.list-game {
+height: 200px;
+background:white;
+overflow: scroll;
+overflow-x: hidden;
+width: 100%;
+margin-top:2px;
+padding: 3px;
+border: 1px solid rgba(0,0,0,0.25);
+}
+.list-game label {
+padding: 0;
+display: inline-block;
+}
+.list-mangle {
+height: 500px;
+background:#fff;
+overflow: auto;
+overflow-x: auto;
+width: 100%;
+padding: 4px;
+margin-top:8px;
+border: 1px solid #ccc;
+}
+table, tr, td {
+border: none;
+}
+table {
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 100%;
+}
+td, th {
+border: 1px solid #dddddd;
+text-align: left;
+padding: 8px;
+}
+table {
+  width: 100%;
+}
+th {
+  width: 50%;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body onLoad="callmodal()">
+<div id="wrap">
+<div class="logo">
+<a href="mikrotiktool.github.io"><span style="color:#ff6600 !important">mikrotiktool</span>.Github.io</a>  <img style="float:right; padding-top:10px" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fmikrotiktool.github.io%2F&count_bg=%23C83D3D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" alt="Hits"/>
+</div>
+<div class="header">
+<span style="float:left; display:inline;margin-right:6px; margin-top:10px">
+<a href="mikrotiktool.github.io/mikrotik-pcq-burst-rate-queue-size-generator.html"><img src="mikrotiktool.github.io/mikrotik/img/logo.png" alt="HOME"></a>
+</span>
+<h1>MIKROTIK PCQ BURST RATE + QUEUE SIZE CALCULATOR</h1>
+</div>
+   <div class="sidebar">
+   		<div style="padding-top:10px;float:left; width:100%;">
+		<label><b>PCQ QUEUE SIZE</b></label><br>
+		<label>Total Client (Sub Queue)</label><br>
+	    <input type="text" id="total-client" style='color: Tomato' placeholder="40" value="40" >
+		</div>
+		<div style="float:left; width:100%;">
+		<label>Queue Size (Limit)</label><br>
+	    <input type="text" id="queue-size" style='color: Chocolate; margin-bottom:30px' placeholder="50" value="50" >
+		</div>
+		<label><b>PCQ BURST RATE</b></label><br>
+		<div style="float:left; width:100%;">
+		<label>Rate (K/M)</label><br>
+	    <input onkeydown="upperCaseF(this)" type="text" id="max-rate" style='color: green' placeholder="512K" value="512K" >
+		</div>
+		<div style="float:left; width:100%;">
+		<label>Burst Rate (K/M)</label><br>
+        <input onkeydown="upperCaseF(this)" type="text" id="burst-rate" style='color: #01A3DF' value="1M" placeholder="1M"  >
+		</div>
+        <div style="float:left; width:100%;padding-bottom:15px;">
+		<label>Burst Duration (second)</label><br>
+ 		<input type="text" id="interval-bonus" style='color: Crimson' value="6" placeholder="6" >
+		</div>
+<button style="margin-bottom:25px;margin-bottom:10px" id="copyscript" type="button" onclick="myFunction()">CALCULATE</button>
+		<span style='color: #555; font-size:12px'>K = Kbps  /  M = Mbps<br>
+		<span style='color: #555; font-size:12px'>Convert 1000Kbps = 1Mbps<br>
+  </div>
+   <div class="content">
+        <span style="margin-left:2px;font-size:16px"><b>COPY PASTE BURST RESULT ON WINBOX</b></span>
+        <div class="list-mangle" style="margin-bottom:10px">
+		<table style="font-weight:normal">
+			<thead>
+			<tr style="background-color: #eee;font-weight:normal">
+				<th style="background-color: #fff;">PCQ Type</th>
+				<th style="background-color: #ddd;" >Result</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+			 <th  style="background-color: #eee; font-weight:normal">Rate</th>
+			  <td id="result-max-rate" style='font-weight:bold; color: DarkGreen'>512K</td>
+			 </tr>
+			 <th  style="background-color: #eee; font-weight:normal">Queue Size</th>
+			  <td id="result-queue-size" style='font-weight:bold;color: Chocolate' >50</td>
+			 </tr>
+			 <th  style="background-color: #eee; font-weight:normal">Total Queue Size</th>
+			  <td id="result-total-queue-size" style='font-weight:bold;color: DarkCyan'>2000</td>
+			 </tr>
+			  <th  style="background-color: #eee; font-weight:normal">Burst Rate</th>
+			  <td id="result-burst-rate" style='font-weight:bold;color: #01A3DF'>1M</td>
+			 </tr>
+			 <tr>
+			  <th  style="background-color: #eee; font-weight:normal">Burst Threshold</th>
+			  <td id="result-burst-threshold" style='font-weight:bold;color: CornflowerBlue' >384K</td>
+			 </tr>
+			 <tr>
+			  <th  style="background-color: #eee; font-weight:normal">Burst Time</th>
+			  <td id="result-burst-time" style='font-weight:bold;color: DarkViolet'>16</td>
+			 </tr>
+
+
+			</tbody>
+
+		</table>
+		<br>
+
+
+		<div style="font-size:13px; padding-left:10px; padding-right:10px">
+		<b>PCQ Queue Size:</b><br>
+		<span style='color: red'>Total Queue Size</span> = ( <span style='color: Tomato'>Total Client</span> * <span style='color: Chocolate'>Queue Size</span> ) <br>
+		<span style='color: red'>Total Queue Size</span> = ( <span id="for-total-client" style='color:Tomato'>40</span> * <span id="for-queue-size" style='color: Chocolate'>50</span> ) = <span id="for-total-queue-size" style='color: DarkCyan;font-weight:bold'>2000</span> KiB<br>
+		<div style='border-top:1px solid grey; margin-top:5px;padding-top:5px;color: black'>
+		From <span style='color: black'><span id="result-total-client" style='color: Tomato; font-weight:bold' >40</span> client it can get <span id="result-queue-size2" style='color: Chocolate;font-weight:bold'>50</span> packets per client with <span id="result-total-queue-size2" style='color: DarkCyan;font-weight:bold'>2000</span> Size Total Packets.</span> With <span id="result-total-queue-size3" style='color: DarkCyan;font-weight:bold'>2000</span> size total packets it can drain <span id="ram" style="color:red;font-weight:bold">4MB</span> of RAM Router.</div>
+		</div>
+		<br>
+		<div style="font-size:13px;padding-left:10px;padding-right:10px">
+		<b>PCQ Burst Result:</b><br>
+		<span style='color: #ff6600'>Burst Duration</span> = ( <span style='color: CornflowerBlue'>Burst Threshold</span> * <span style='color: DarkViolet'>Burst Time</span> ) / <span style='color: #01A3DF'>Burst Rate</span><br>
+		<span style='color: #ff6600'>Burst Duration</span> = ( <span id="for-burst-threshold" style='color: CornflowerBlue'>384K</span> * <span id="for-burst-time" style='color: DarkViolet'>16</span> ) / <span id="for-burst-rate" style='color: #01A3DF'>1M</span> = <span id="for-burst-duration" style='color: Crimson;font-weight:bold'>6</span> second<br>
+		<div style='border-top:1px solid grey; margin-top:5px;padding-top:5px;color: black'>
+		<span id="info-asal">
+		<span>Every Client (sub queue) can get Burst Speed to</span> <span id="for-burst-rate2" style='color: #01A3DF;font-weight:bold'>1M</span> in <span id="for-burst-duration2" style='color: Crimson;font-weight:bold'>6</span> second.<br>
+		</span>
+		</div>
+    </div>
+    </div>
+	  </div>
+   <div class="footer">
+ <div style="width:100%; height:90px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- MIKROTIK SCRIPT DB3 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:728px;height:90px"
+data-ad-client="ca-pub-3815059393374366"
+data-ad-slot="4637807296"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div style="margin-top:20px; text-align:center">
+© Copyright 2020-2021 <a href="mikrotiktool.github.io/">mikrotiktool.github.io</a> is proudly powered by <a href="https://pages.github.com/">GitHub Pages</a><br> Don't Forget to Follow <a href="https://github.com/mikrotiktool">My Github</a>  
+</div>
+ </div>
+</div>
+	<script type="text/javascript">
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+function callmodal() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+<script>
+var _0x420b=['for-total-queue-size','max-rate','log','for-burst-duration','interval-bonus','Bytes','ceil','for-burst-time','floor','result-max-rate','innerHTML','value','521491omONXS','result-burst-threshold','round','alert','result-queue-size2','match','373533apxGcB','result-total-queue-size3','for-total-client','replace','result-burst-time','for-burst-rate','1887256tZuKvC','for-burst-rate2','pow','total-client','25pXXrtl','1063704BDCFZh','1391870xZzVBS','1626421HJAinj','for-queue-size','9903KGoWYI','0\x20Byte','info-asal','for-burst-threshold','<span\x20style=\x27color:green\x27>If\x20rate\x20<b>0</b>\x20your\x20client\x20can\x20get\x20unlimited\x20from\x20Max\x20Limit\x20Queue<span>','result-burst-rate','result-total-client','queue-size','(\x20Burst\x20Rate\x20)\x20must\x20be\x20more\x20than\x20(\x20Rate\x20)','getElementById','result-queue-size','for-burst-duration2','burst-rate'];(function(_0x570c1a,_0x38f459){var _0x4120ea=_0x34c7;while(!![]){try{var _0x56eb1d=parseInt(_0x4120ea(0x16d))+-parseInt(_0x4120ea(0x17d))*parseInt(_0x4120ea(0x182))+-parseInt(_0x4120ea(0x173))+parseInt(_0x4120ea(0x180))+parseInt(_0x4120ea(0x179))+-parseInt(_0x4120ea(0x17f))+-parseInt(_0x4120ea(0x17e));if(_0x56eb1d===_0x38f459)break;else _0x570c1a['push'](_0x570c1a['shift']());}catch(_0x2f1b75){_0x570c1a['push'](_0x570c1a['shift']());}}}(_0x420b,0xea016));function _0x34c7(_0x466d49,_0x499c55){return _0x34c7=function(_0x420b56,_0x34c76d){_0x420b56=_0x420b56-0x161;var _0x30a82d=_0x420b[_0x420b56];return _0x30a82d;},_0x34c7(_0x466d49,_0x499c55);}function upperCaseF(_0x3bab18){setTimeout(function(){var _0x4a753b=_0x34c7;_0x3bab18['value']=_0x3bab18[_0x4a753b(0x16c)]['toUpperCase']();},0x1);}function myFunction(){var _0x415993=_0x34c7,_0x395a69=document[_0x415993(0x18b)](_0x415993(0x17c))[_0x415993(0x16c)],_0x19eff0=document['getElementById'](_0x415993(0x189))[_0x415993(0x16c)],_0x29d280=document[_0x415993(0x18b)](_0x415993(0x162))[_0x415993(0x16c)],_0x4578b4=_0x29d280[_0x415993(0x172)](/[a-zA-Z]/),_0x45e9fc=_0x29d280[_0x415993(0x176)](/[^0-9]/g,''),_0x545bef=document['getElementById'](_0x415993(0x18e))[_0x415993(0x16c)],_0x556b79=_0x545bef[_0x415993(0x172)](/[a-zA-Z]/),_0x5d754e=_0x545bef['replace'](/[^0-9]/g,''),_0x181566=document[_0x415993(0x18b)](_0x415993(0x165))[_0x415993(0x16c)],_0x2cc13b=parseInt(_0x181566);if(_0x4578b4=='M')var _0x3d6e52=parseInt(_0x45e9fc*0x3e8);else var _0x3d6e52=parseInt(_0x45e9fc);if(_0x556b79=='M')var _0x523698=parseInt(_0x5d754e*0x3e8);else var _0x523698=parseInt(_0x5d754e);_0x523698<_0x3d6e52&&window[_0x415993(0x170)](_0x415993(0x18a));var _0x49ccb9=Math['ceil'](_0x2cc13b*_0x523698/(_0x3d6e52*(0x3/0x4))),_0x4f54fa=Math[_0x415993(0x167)](_0x3d6e52*(0x3/0x4)),_0xa5f5c5=Math[_0x415993(0x167)](_0x3d6e52*(0x3/0x4)*(_0x2cc13b*_0x523698/(_0x3d6e52*(0x3/0x4)))/_0x523698);document[_0x415993(0x18b)](_0x415993(0x18c))[_0x415993(0x16b)]=_0x19eff0,document['getElementById']('result-total-queue-size')[_0x415993(0x16b)]=_0x395a69*_0x19eff0,document['getElementById'](_0x415993(0x171))['innerHTML']=_0x19eff0,document[_0x415993(0x18b)]('result-total-queue-size2')[_0x415993(0x16b)]=_0x395a69*_0x19eff0,document['getElementById'](_0x415993(0x188))[_0x415993(0x16b)]=_0x395a69,document[_0x415993(0x18b)](_0x415993(0x175))[_0x415993(0x16b)]=_0x395a69,document[_0x415993(0x18b)](_0x415993(0x181))['innerHTML']=_0x19eff0,document[_0x415993(0x18b)](_0x415993(0x161))[_0x415993(0x16b)]=_0x395a69*_0x19eff0;var _0x21098b=_0x395a69*_0x19eff0*0x7d0+0xc8;document['getElementById']('ram')[_0x415993(0x16b)]=bytesToSize(_0x21098b),document['getElementById'](_0x415993(0x174))[_0x415993(0x16b)]=_0x395a69*_0x19eff0,_0x45e9fc>0x0?(document['getElementById'](_0x415993(0x16a))[_0x415993(0x16b)]=_0x29d280,document['getElementById'](_0x415993(0x187))[_0x415993(0x16b)]=_0x545bef,document[_0x415993(0x18b)](_0x415993(0x184))[_0x415993(0x16b)]='<span>Every\x20Client\x20(sub\x20queue)\x20can\x20get\x20Burst\x20Speed\x20to</span>\x20<span\x20id=\x27for-burst-rate2\x27\x20style=\x27color:\x20#01A3DF;font-weight:bold\x27>1000K</span>\x20in\x20<span\x20id=\x27for-burst-duration2\x27\x20style=\x27color:\x20Crimson;font-weight:bold\x27>6</span>\x20second',_0x523698>0x0?(document[_0x415993(0x18b)](_0x415993(0x16e))['innerHTML']=_0x4f54fa+'K',document['getElementById'](_0x415993(0x177))[_0x415993(0x16b)]=_0x49ccb9,document['getElementById'](_0x415993(0x185))[_0x415993(0x16b)]=_0x4f54fa+'K',document[_0x415993(0x18b)](_0x415993(0x178))[_0x415993(0x16b)]=_0x545bef,document[_0x415993(0x18b)](_0x415993(0x168))[_0x415993(0x16b)]=_0x49ccb9,document[_0x415993(0x18b)](_0x415993(0x164))[_0x415993(0x16b)]=_0xa5f5c5,document['getElementById'](_0x415993(0x17a))[_0x415993(0x16b)]=_0x545bef,document[_0x415993(0x18b)](_0x415993(0x18d))[_0x415993(0x16b)]=_0xa5f5c5):(document[_0x415993(0x18b)](_0x415993(0x187))[_0x415993(0x16b)]='0',document[_0x415993(0x18b)]('result-burst-threshold')[_0x415993(0x16b)]='0',document['getElementById'](_0x415993(0x177))['innerHTML']='0',document[_0x415993(0x18b)](_0x415993(0x185))[_0x415993(0x16b)]='0',document['getElementById']('for-burst-rate')['innerHTML']='0',document[_0x415993(0x18b)]('for-burst-time')['innerHTML']='0',document[_0x415993(0x18b)](_0x415993(0x164))['innerHTML']='0',document[_0x415993(0x18b)](_0x415993(0x17a))['innerHTML']='0',document[_0x415993(0x18b)](_0x415993(0x18d))[_0x415993(0x16b)]='0',document['getElementById'](_0x415993(0x184))[_0x415993(0x16b)]='<span\x20style=\x27color:red\x27>Burst\x20not\x20active<span>')):(document[_0x415993(0x18b)](_0x415993(0x16a))[_0x415993(0x16b)]='0',document[_0x415993(0x18b)](_0x415993(0x187))[_0x415993(0x16b)]='0',document['getElementById'](_0x415993(0x16e))['innerHTML']='0',document[_0x415993(0x18b)]('result-burst-time')[_0x415993(0x16b)]='0',document[_0x415993(0x18b)](_0x415993(0x185))[_0x415993(0x16b)]='0',document[_0x415993(0x18b)](_0x415993(0x178))[_0x415993(0x16b)]='0',document[_0x415993(0x18b)]('for-burst-time')['innerHTML']='0',document[_0x415993(0x18b)]('for-burst-duration')[_0x415993(0x16b)]='0',document['getElementById']('for-burst-rate2')[_0x415993(0x16b)]='0',document[_0x415993(0x18b)]('for-burst-duration2')[_0x415993(0x16b)]='0',document['getElementById']('info-asal')[_0x415993(0x16b)]=_0x415993(0x186));}function bytesToSize(_0x2da6fd){var _0x1e0c87=_0x34c7,_0x44c2da=[_0x1e0c87(0x166),'KB','MB','GB','TB'];if(_0x2da6fd==0x0)return _0x1e0c87(0x183);var _0x43ef64=parseInt(Math[_0x1e0c87(0x169)](Math[_0x1e0c87(0x163)](_0x2da6fd)/Math[_0x1e0c87(0x163)](0x400)));return Math[_0x1e0c87(0x16f)](_0x2da6fd/Math[_0x1e0c87(0x17b)](0x400,_0x43ef64),0x2)+''+_0x44c2da[_0x43ef64];}
+ </script>
+</body>
+</html>

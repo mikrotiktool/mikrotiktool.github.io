@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset='utf-8'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remote IP Public Static For Secondary Gateway Mikrotik - mikrotiktool.Github.io</title>
+<meta content='Remote IP Public Static For Secondary Gateway Mikrotik - mikrotiktool.Github.io' name='description'/>
+<meta content='script generator, mikrotik, router, winbox, termimal, rsc, script, hotspot, wireless, rtrwnet' name='keywords'/>
+<meta content='index, follow, noodp' name='robots'/>
+<link rel="shortcut icon" href="mikrotiktool.github.io/favicon.ico" type="image/x-icon"> 
+<meta property="og:title" content="Remote IP Public Static For Secondary Gateway Mikrotik ">
+<meta property="og:description" content="Remote IP Public Static For Secondary Gateway Mikrotik ">
+<meta property="og:image:alt" content="Remote IP Public Static For Secondary Gateway Mikrotik ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="mikrotiktool.github.io/remote-ip-public-static.html"> 
+<script data-ad-client="ca-pub-3815059393374366" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M5TL99Q9M2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M5TL99Q9M2');
+</script>	
+<style> 
+*{-webkit-transition: all .3s ease-in;-moz-transition: all .3s ease-in;-ms-transition: all .3s ease-in;transition: all .3s ease-in;}
+body, div, span, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, textarea, p, blockquote, th, td, tr, table{margin:0; padding:0}
+body { font-size:16px; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin:20px;}
+html, body {
+height: 100%;
+width:100%;
+margin-top: 0px;
+padding:0;
+}
+* {
+box-sizing: border-box;
+}
+.logo {
+margin-top:30px;
+color: #111;
+text-decoration:none;
+font-size:27px;
+font-weight:bold; 
+}	
+.logo a{
+color:#111 !important;
+text-decoration:none !important;
+}
+.Menu{
+width:100%;
+border-bottom:1px solid #ccc;
+height:100%;
+padding-bottom: 15px;
+margin-bottom: 20px;
+font-weight:bold;
+}
+
+#wrap{
+width:800px;
+margin:0 auto;
+padding:10px;
+}
+.header{
+height:auto; 
+width:100%;
+margin-top:0px;
+margin-bottom:10px;
+border-top:1px solid #ccc;
+}
+.main-wrap{
+background-color:#a8328b;
+}     
+.content{
+float:right;
+width:100%;
+padding: 10px;
+border:1px solid #bbb;
+background:#ddd;
+}
+.sidebar{
+float:left;
+width:100%;
+padding: 10px;
+background-color:#ddd;
+border:1px solid #bbb; 
+}
+.footer{
+font-size:14px;
+padding-top:15px;
+text-align:center;
+clear:both;
+width:auto;
+}
+h1 {
+color:#111;
+font-size:23px;
+margin-bottom:10px;
+margin-top:10px;
+}
+a:link {
+color: #a8328b;
+}
+a:visited {
+color: #a8328b;
+}
+a:hover {
+color: #a8328b;
+}
+a:active {
+color: #a8328b;
+}
+.menu {
+clear:both;
+width:auto;
+padding-bottom:13px;
+}
+.menu1 {
+width:360px;
+margin-bottom:1px;
+font-weight:bold;
+background-color:#4CAF50;
+padding:6px;
+color:white;
+display: inline-block;
+margin:0;
+}
+.menu1 a:link {
+text-decoration:none;
+color:white;
+}
+.menu1 a:visited{
+text-decoration:none;
+color:white;
+}
+.menu2 {
+width:300px;
+margin-bottom:1px;
+font-weight:bold;
+background-color:#bbb;
+padding:6px;
+color:white;
+display: inline-block;
+margin:0;
+}
+.menu2 a:link{
+text-decoration:none;
+color:white;
+}
+.menu2 a:visited{
+text-decoration:none;
+color:white;
+}
+button {
+color: #fff;
+background-color: #a8328b;
+border-color: #a8328b;
+border:none;
+padding:8px;
+width:137px;
+font-weight:bold;
+font-size:16px !important;
+}
+.row:after {
+content: "";
+display: table;
+clear: both;
+}  
+input[type=text], select, textarea {
+width: 100%;
+padding: 5px;
+border: 1px solid #bbb;
+border-radius: 1px;
+resize: vertical;
+margin-bottom:5px;
+font-size:16px !important;
+}
+label {
+padding: 5px 5px 5px 0;
+display: inline-block;
+}
+input[type=submit] {
+background-color: #a8328b;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 1px;
+cursor: pointer;
+float: right;
+}
+input[type=submit]:hover {
+background-color: #45a049;
+}
+.col-25 {
+float: left;
+width: 25%;
+margin-top: 6px;
+}
+.col-75 {
+float: left;
+width: 75%;
+margin-top: 6px;
+}
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+.list-game {
+height: 200px;
+background:white;
+overflow: scroll;
+overflow-x: hidden;
+width: 100%;
+margin-top:2px;
+padding: 3px;
+border: 1px solid rgba(0,0,0,0.25);
+}
+.list-game label {
+padding: 0;
+display: inline-block;
+} 
+.list-mangle {
+height: 410px;
+background:#fff;
+overflow: auto;
+overflow-x: auto;
+width: 100%;
+padding-bottom: 4px;
+margin-top:10px;
+border: 1px solid #ccc;
+}
+table, tr, td {
+border: none;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+} 
+</style>
+</head>
+<body onLoad="callmodal()"> 
+<div id="wrap">
+<div class="logo">	  
+<a href="mikrotiktool.github.io"><span style="color:#a8328b !important">mikrotiktool</span>.Github.io</a> <img style="float:right; padding-top:10px" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fmikrotiktool.github.io%2F&count_bg=%23C83D3D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" alt="Hits"/>
+</div>	
+<div class="header">
+<span style="float:left; display:inline;margin-right:6px; margin-top:10px">
+<a href="mikrotiktool.github.io/remote-ip-public-static.html"><img src="mikrotiktool.github.io/mikrotik/img/logo.png" alt="HOME"></a>
+</span>	
+<h1>REMOTE IP PUBLIC STATIC FOR SECONDARY GATEWAY MIKROTIK</h1>
+</div>
+    <div class="sidebar">
+		<div style="float:left; width:48%;">
+		  <label>Target Interface WAN / ISP</label><br>
+         <input type="text" id="input-interface-isp" value="ether2-Astinet" placeholder="ether2-Astinet" onkeyup="myFunction()" >
+		  </div>
+		  <div style="float:left; width:48%;margin-left:10px">
+		 <label>IP Gateway WAN / ISP</label><br>
+         <input type="text" id="input-ip-gateway" value="192.168.10.1" placeholder="192.168.10.1" onkeyup="myFunction()">
+		 </div>
+		
+    </div>
+    <div class="content"> 
+        <span style="margin-left:2px">Script Generator Result</span>
+
+         <div class="list-mangle">
+		 		<div style="width:100%; height:90px; margin-top:10px; margin-left:10px; margin-bottom:5px;">	
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- MIKROTIK SCRIPT DB3 -->
+			<ins class="adsbygoogle"
+			style="display:inline-block;width:728px;height:90px"
+			data-ad-client="ca-pub-3815059393374366"
+			data-ad-slot="4637807296"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script> 
+		</div>
+            <table id="showScript" style="padding:5px; white-space: nowrap;">
+               <tr>
+                  <td>
+                     <span style="color:#a8328b;">
+                     ########################################################<br>
+                     # Remote IP Public Static For Secondary Gateway Mikrotik<br>
+                     # Date/Time: <span id="tanggalwaktu"></span><br>
+                     # By mikrotiktool.Github.io +  <br>
+                     ########################################################<br><br>
+                     </span>
+					 <div id="list-output">
+					/ip firewall mangle<br>
+					add action=mark-connection chain=input in-interface="<span id="interface-isp" style="color:#a8328b">ether2-Astinet</span>" new-connection-mark=ip-public passthrough=yes<br>
+					add action=mark-routing chain=output connection-mark=ip-public  new-routing-mark=ip-public passthrough=no<br>
+					<br>
+					/ip route<br>
+					add check-gateway=ping gateway="<span id="ip-gateway" style="color:#a8328b">192.168.10.1</span>" routing-mark=ip-public<br>
+					 </div>
+				</td>
+				</tr>			
+			</table>
+         </div>
+         <br>
+         <button style="margin-top:-5px" id="copyscript" type="button" onclick="selectElementContents(document.getElementById('showScript'))">Copy Script</button><span style="padding:7px; font-weight:normal;margin-left:10px"><b>Copy-Paste to Terminal, make sure this Script in Mangle on the Top position!
+ </b></span>  
+    </div>
+   <div class="footer">
+© Copyright 2020-2021 <a href="mikrotiktool.github.io/">mikrotiktool.github.io</a> is proudly powered by <a href="https://pages.github.com/">GitHub Pages</a><br> Don't Forget to Follow <a href="https://github.com/mikrotiktool">My Github</a>  
+    </div>
+   </div>
+ 	 	 
+	<script type="text/javascript">
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+function callmodal() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>   
+<script>  
+	var _0x2636=['tanggalwaktu','selectNode','getSelection','toFixed','subnet','IP\x20Address','dns','gateway','select','subnet\x20mask','input-ip-gateway','addRange','input-interface-isp','ipaddress','Attention!\x20IP\x20Address\x20Validation\x20Incorrect!\x20Please\x20check\x20your\x20IP\x20address\x20again!','toLocaleString','match','moveToElementText','DNS','value','selectNodeContents','copy','toUpperCase','ip-gateway','execCommand','getElementById','body','createTextRange','innerHTML','parseFloat','interface-isp'];(function(_0x3d6773,_0x3e3d5b){var _0x26369c=function(_0x4e3fae){while(--_0x4e3fae){_0x3d6773['push'](_0x3d6773['shift']());}};_0x26369c(++_0x3e3d5b);}(_0x2636,0xe7));var _0x4e3f=function(_0x3d6773,_0x3e3d5b){_0x3d6773=_0x3d6773-0xbc;var _0x26369c=_0x2636[_0x3d6773];return _0x26369c;};var _0x2a0800=_0x4e3f,dt=new Date();document[_0x2a0800(0xc7)](_0x2a0800(0xcd))[_0x2a0800(0xca)]=dt[_0x2a0800(0xbd)]();function upperCaseF(_0x49eb06){setTimeout(function(){var _0x417651=_0x4e3f;_0x49eb06[_0x417651(0xc1)]=_0x49eb06[_0x417651(0xc1)][_0x417651(0xc4)]();},0x1);}function resultToFixed(_0x43285c){var _0x4028d2=_0x2a0800;return Number[_0x4028d2(0xcb)](_0x43285c)[_0x4028d2(0xd0)](0x2);}function myFunction(){var _0x11d632=_0x2a0800,_0x4f7366=document['getElementById'](_0x11d632(0xd9))['value'],_0x2eeb19=document[_0x11d632(0xc7)](_0x11d632(0xd7))['value'];document[_0x11d632(0xc7)](_0x11d632(0xcc))[_0x11d632(0xca)]=_0x4f7366,document[_0x11d632(0xc7)](_0x11d632(0xc5))['innerHTML']=_0x2eeb19;}function selectElementContents(_0xad176d){var _0x55b3f7=_0x2a0800,_0x1f9491=document[_0x55b3f7(0xc8)],_0x336b2a,_0x2fc953;if(document['createRange']&&window[_0x55b3f7(0xcf)]){_0x336b2a=document['createRange'](),_0x2fc953=window[_0x55b3f7(0xcf)](),_0x2fc953['removeAllRanges']();try{_0x336b2a[_0x55b3f7(0xc2)](_0xad176d),_0x2fc953[_0x55b3f7(0xd8)](_0x336b2a);}catch(_0x38e7fc){_0x336b2a[_0x55b3f7(0xce)](_0xad176d),_0x2fc953[_0x55b3f7(0xd8)](_0x336b2a);}}else _0x1f9491[_0x55b3f7(0xc9)]&&(_0x336b2a=_0x1f9491['createTextRange'](),_0x336b2a[_0x55b3f7(0xbf)](_0xad176d),_0x336b2a[_0x55b3f7(0xd5)]());document[_0x55b3f7(0xc6)](_0x55b3f7(0xc3));}function ValidateIPaddressOnChange(_0xc03f10,_0x502e28){var _0x9f2185=_0x2a0800,_0x4def7b=/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,_0x483888='';switch(_0x502e28){case _0x9f2185(0xda):_0x483888=_0x9f2185(0xd2);break;case _0x9f2185(0xd4):_0x483888=_0x9f2185(0xd4);break;case _0x9f2185(0xd3):_0x483888=_0x9f2185(0xc0);break;case _0x9f2185(0xd1):_0x483888=_0x9f2185(0xd6);break;}!_0xc03f10[_0x9f2185(0xc1)][_0x9f2185(0xbe)](_0x4def7b)&&(_0xc03f10['focus'](),alert(_0x9f2185(0xbc)));}
+</script>  
+	</body>
+</html>
